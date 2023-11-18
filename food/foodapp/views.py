@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate
 from django.contrib import messages
-
+from django.urls import reverse
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect
+from django.contrib.auth import authenticate,logout,login
 
 # Create your views here.
 def store(request):
@@ -19,21 +22,40 @@ def checkout(request):
     return render(request, 'store/checkout.html', context)
 
 
-def login(request):
-    pass
-    # print("in")
-    # if request.method == 'POST':
-    #     username = request.POST["username"]
-    #     password = request.POST["password"]
-    #     print(password)
-    #     user = authenticate(request, username=username, password=password)
-    #     if user is not None:
-    #         login(request, user)
-    #         return redirect('store/store')
-    #     # Redirect to a success page.
-    #     else:
-    #         print("okay")
-    #         messages.success(request, 'There was an error')
-    #         return redirect('registration/login')
-    # print("ok")
-    #return render(request, 'registration/login.html')
+def login_auth(request):
+    print("in")
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        print(username)
+        print(password)
+        user = authenticate(request, username=username, password=password)
+        print(user)
+        if user is not None:
+            login(request, user)
+            return render(request, 'store/store.html')
+        # Redirect to a success page.
+        else:
+            print("okay")
+            return HttpResponseRedirect(reverse('login'))
+    print("ok")
+    return render(request, 'registration/login.html')
+
+def home(request):
+    print("in")
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        print(username)
+        print(password)
+        user = authenticate(request, username=username, password=password)
+        print(user)
+        if user is not None:
+            login(request, user)
+            return render(request, 'store/home.html')
+        # Redirect to a success page.
+        else:
+            print("okay")
+            return HttpResponseRedirect(reverse('login'))
+    print("ok")
+    return render(request, 'registration/login.html')
