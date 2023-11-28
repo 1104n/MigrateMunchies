@@ -7,8 +7,8 @@ urlpatterns = [
     path('cart/', views.cart, name='cart'),
     path('checkout/', views.checkout, name='checkout'),
     path("foodapp/", include("django.contrib.auth.urls")),
-    path('login/', views.login_auth, name='login_auth'),
-    path('foodapp/home/', views.home, name='home'),
+    path('register/', views.register, name='register'),
+    path('home/', views.home, name='home'),
 
 
 ]
