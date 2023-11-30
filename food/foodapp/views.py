@@ -26,20 +26,24 @@ def checkout(request) :
 def home(request) :
     return render(request, 'home.html', {})
 
-def register(request):
+
+def register(request) :
     print("in")
-    if request.method == 'POST':
+    if request.method == 'POST' :
+        a = request.POST.get('username')
+        b = request.POST.get('password1')
+        print(a)
+        print(b)
         form = UserCreationForm(request.POST)
-        #print(form)
-        if form.is_valid():
+        # print(form)
+        if form.is_valid() :
             print("valid")
             form.save()
-            messages.success(request, "account created sucessfully")
-            return render('registration/login.html')
-        else:
+            messages.success(request, "account created successfully")
+            return redirect('registration/login.html')
+        else :
             print("else")
             form = UserCreationForm()
         context = {'form' : form}
         return render(request, 'registration/register.html', context)
     return render(request, 'registration/register.html')
-
