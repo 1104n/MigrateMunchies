@@ -27,6 +27,7 @@ def home(request) :
     return render(request, 'home.html', {})
 
 
+
 def register(request) :
     print("in")
     if request.method == 'POST' :
@@ -38,9 +39,10 @@ def register(request) :
         # print(form)
         if form.is_valid() :
             print("valid")
-            form.save()
+            user = form.save()
+            login(request, user)
             messages.success(request, "account created successfully")
-            return redirect('registration/login.html')
+            return redirect('home')
         else :
             print("else")
             form = UserCreationForm()
