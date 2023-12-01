@@ -27,9 +27,7 @@ def home(request) :
     return render(request, 'home.html', {})
 
 
-
 def register(request) :
-    print("in")
     if request.method == 'POST' :
         a = request.POST.get('username')
         b = request.POST.get('password1')
@@ -37,15 +35,14 @@ def register(request) :
         print(b)
         form = UserCreationForm(request.POST)
         # print(form)
-        if form.is_valid() :
-            print("valid")
+        if form.is_valid():
             user = form.save()
             login(request, user)
             messages.success(request, "account created successfully")
             return redirect('home')
         else :
-            print("else")
             form = UserCreationForm()
-        context = {'form' : form}
+        context = {'form': form}
         return render(request, 'registration/register.html', context)
-    return render(request, 'registration/register.html')
+    form = UserCreationForm()
+    return render(request, 'registration/register.html', context={"form": form})
