@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
-from django.urls import reverse
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.contrib.auth import login, authenticate, logout
